@@ -1,0 +1,32 @@
+@page "/"
+@inject IAnalyticsService Analytics
+
+<div class="grid grid-cols-12 gap-6 animate-page">
+
+    <div class="col-span-12 grid grid-cols-4 gap-6">
+        <StatCard Title="Total Entries" Value="@snapshot?.TotalEntries" />
+        <StatCard Title="Current Streak" Value="@snapshot?.CurrentStreak" />
+        <StatCard Title="Longest Streak" Value="@snapshot?.LongestStreak" />
+        <StatCard Title="Top Mood" Value="@snapshot?.MostFrequentMood" />
+    </div>
+
+    <div class="col-span-12 backdrop-blur-xl bg-white/5 rounded-2xl p-6">
+        <h2 class="text-xl font-semibold mb-4">Mood Distribution</h2>
+
+        <div class="flex gap-4">
+            <Progress label="Positive" value="@snapshot?.Distribution.PositivePct" color="bg-green-500"/>
+            <Progress label="Neutral" value="@snapshot?.Distribution.NeutralPct" color="bg-yellow-400"/>
+            <Progress label="Negative" value="@snapshot?.Distribution.NegativePct" color="bg-red-500"/>
+        </div>
+    </div>
+
+</div>
+
+@code {
+    AnalyticsSnapshot? snapshot;
+
+    protected override async Task OnInitializedAsync()
+    {
+        snapshot = await Analytics.GetSnapshotAsync(null, null);
+    }
+}

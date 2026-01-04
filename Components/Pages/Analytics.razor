@@ -1,0 +1,27 @@
+@page "/analytics"
+@inject IAnalyticsService Analytics
+
+<div class="backdrop-blur-xl bg-white/5 rounded-2xl p-8 animate-page">
+
+    <h1 class="text-2xl font-bold mb-6">Analytics</h1>
+
+    <ul>
+        @foreach (var t in snapshot?.TopTags ?? new())
+        {
+            <li class="flex justify-between py-1">
+                <span>@t.TagName</span>
+                <span>@t.Count</span>
+            </li>
+        }
+    </ul>
+
+</div>
+
+@code {
+    AnalyticsSnapshot? snapshot;
+
+    protected override async Task OnInitializedAsync()
+    {
+        snapshot = await Analytics.GetSnapshotAsync(null, null);
+    }
+}

@@ -1,0 +1,73 @@
+@page "/journal"
+@inject IJournalService Journal
+@inject ILookupService Lookup
+
+<div class="max-w-4xl mx-auto backdrop-blur-xl bg-white/5 rounded-2xl p-8 animate-page">
+
+    <h1 class="text-2xl font-bold mb-6">
+        Journal — @today.ToString("dd MMM yyyy")
+    </h1>
+
+    <input class="w-full bg-transparent border-b mb-4 text-xl"
+           placeholder="Title"
+           @bind="title" />
+
+    <textarea class="w-full h-48 bg-transparent border rounded-xl p-4"
+              placeholder="Write in Markdown..."
+              @bind="content"></textarea>
+
+    <div class="mt-6">
+        <h3 class="font-semibold mb-2">Primary Mood</h3>
+        <select class="bg-black/40 p-2 rounded"
+                @bind="primaryMoodId">
+            @foreach (var m in moods)
+            {
+                <option value="@m.Id">@m.Name</option>
+            }
+        </select>
+    </div>
+
+    <button @onclick="Save"
+            class="mt-6 px-6 py-3 bg-indigo-600 rounded-xl hover:scale-105 transition">
+        Save Entry
+    </button>
+
+</div>
+
+@code {
+    DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+
+    string title = "";
+    string content = "";
+
+    int primaryMoodId;
+    List<Mood> moods = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        moods = await Lookup.GetMoodsAsync();
+        primaryMoodId = moods.First().Id;
+
+        var existing = await Journal.GetEntryAsync(today);
+        if (existing != null)
+        {
+            title = existing.Title;
+            content = existing.ContentMarkdown;
+            primaryMoodId = existing.EntryMoods.First(x => x.IsPrimary).MoodId;
+        }
+    }
+
+    async Task Save()
+    {
+        await Journal.UpsertEntryAsync(
+            today,
+            title,
+            content,
+            null,
+            primaryMoodId,
+            new(),
+            new(),
+            new()
+        );
+    }
+}

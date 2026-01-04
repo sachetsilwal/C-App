@@ -1,0 +1,34 @@
+﻿@inherits LayoutComponentBase
+
+<div class="min-h-screen bg-neutral-950 text-white font-inter">
+    <div class="grid grid-cols-12 gap-6 p-6">
+
+        <aside class="col-span-3 backdrop-blur-xl bg-white/5 rounded-2xl p-6">
+            <h1 class="text-2xl font-bold mb-6">Journal</h1>
+            <nav class="space-y-4">
+                <a href="/" class="block hover:text-indigo-400">Dashboard</a>
+                <a href="/journal" class="block hover:text-indigo-400">Journal</a>
+                <a href="/analytics" class="block hover:text-indigo-400">Analytics</a>
+                <a href="/settings" class="block hover:text-indigo-400">Settings</a>
+            </nav>
+        </aside>
+
+        <main class="col-span-9">
+            @Body
+        </main>
+
+    </div>
+</div>
+<button class="mt-6 text-sm opacity-70"
+        @onclick="ToggleTheme">
+    Toggle Theme
+</button>
+
+@code {
+    [Inject] ThemeService Theme { get; set; } = null!;
+
+    async Task ToggleTheme()
+    {
+        await Theme.ToggleAsync();
+    }
+}

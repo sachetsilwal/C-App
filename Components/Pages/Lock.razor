@@ -1,0 +1,45 @@
+@page "/lock"
+@inject ISecurityService Security
+@inject NavigationManager Nav
+
+<div class="min-h-screen flex items-center justify-center bg-neutral-950">
+
+    <div class="backdrop-blur-xl bg-white/5 p-8 rounded-2xl w-80 text-center animate-page">
+        <h1 class="text-xl font-bold mb-4">App Locked</h1>
+
+        <input type="password"
+               maxlength="12"
+               placeholder="Enter PIN"
+               class="w-full bg-black/40 p-3 rounded text-center"
+               @bind="pin" />
+
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <p class="text-red-400 text-sm mt-2">@error</p>
+        }
+
+        <button class="mt-4 w-full bg-indigo-600 py-2 rounded-xl"
+                @onclick="Unlock">
+            Unlock
+        </button>
+    </div>
+
+</div>
+
+@code {
+    string pin = "";
+    string? error;
+
+    async Task Unlock()
+    {
+        if (await Security.VerifyPinAsync(pin))
+        {
+            Nav.NavigateTo("/");
+        }
+        else
+        {
+            error = "Invalid PIN";
+            pin = "";
+        }
+    }
+}

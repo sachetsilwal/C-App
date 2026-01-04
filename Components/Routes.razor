@@ -1,0 +1,25 @@
+﻿@using MYMAUIAPP.Components.Services.Abstractions
+@inject ISecurityService Security
+@inject NavigationManager Nav
+
+<Router AppAssembly="@typeof(Routes).Assembly">
+    <Found Context="routeData">
+        <AuthorizeView>
+            <Authorized>
+                <RouteView RouteData="@routeData"
+                           DefaultLayout="typeof(Components.Layout.MainLayout)" />
+            </Authorized>
+            <NotAuthorized>
+                <RedirectToLock />
+            </NotAuthorized>
+        </AuthorizeView>
+    </Found>
+</Router>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        if (await Security.IsLockEnabledAsync())
+            Nav.NavigateTo("/lock");
+    }
+}

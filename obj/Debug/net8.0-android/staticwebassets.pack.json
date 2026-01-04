@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/sachetshilwal/Desktop/Final Year/Application Development/MyMauiApp/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "/Users/sachetshilwal/Desktop/Final Year/Application Development/MyMauiApp/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/Users/sachetshilwal/Desktop/Final Year/Application Development/MyMauiApp/wwwroot/js/animations.js",
+      "PackagePath": "staticwebassets/js/animations.js"
+    },
+    {
+      "Id": "/Users/sachetshilwal/Desktop/Final Year/Application Development/MyMauiApp/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/sachetshilwal/Desktop/Final Year/Application Development/MyMauiApp/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css.map"
+    },
+    {
+      "Id": "obj/Debug/net8.0-android/staticwebassets/msbuild.MyMauiApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0-android/staticwebassets/msbuild.build.MyMauiApp.props",
+      "PackagePath": "build\\MyMauiApp.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0-android/staticwebassets/msbuild.buildMultiTargeting.MyMauiApp.props",
+      "PackagePath": "buildMultiTargeting\\MyMauiApp.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0-android/staticwebassets/msbuild.buildTransitive.MyMauiApp.props",
+      "PackagePath": "buildTransitive\\MyMauiApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

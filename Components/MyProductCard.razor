@@ -1,0 +1,9 @@
+<div class="backdrop-blur-xl bg-white/5 rounded-2xl p-6 hover:scale-[1.02] transition">
+    <p class="text-sm opacity-60">@Title</p>
+    <p class="text-3xl font-bold mt-2">@Value</p>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public object? Value { get; set; }
+}

@@ -1,0 +1,39 @@
+@page "/timeline"
+@inject IJournalService Journal
+
+<div class="animate-page space-y-4">
+
+    @foreach (var e in entries)
+    {
+        <div class="backdrop-blur-xl bg-white/5 rounded-xl p-4">
+            <h3 class="font-semibold">@e.EntryDate — @e.Title</h3>
+            <p class="opacity-70 text-sm">@e.WordCount words</p>
+        </div>
+    }
+
+    <button @onclick="LoadMore"
+            class="px-4 py-2 bg-white/10 rounded-xl">
+        Load More
+    </button>
+
+</div>
+
+@code {
+    List<JournalEntry> entries = new();
+    int page = 1;
+
+    protected override async Task OnInitializedAsync()
+        => await Load();
+
+    async Task Load()
+    {
+        var result = await Journal.GetPagedAsync(page, 10);
+        entries.AddRange(result.Items);
+    }
+
+    async Task LoadMore()
+    {
+        page++;
+        await Load();
+    }
+}
